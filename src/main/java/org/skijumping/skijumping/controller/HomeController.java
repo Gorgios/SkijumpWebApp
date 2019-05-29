@@ -11,4 +11,9 @@ public class HomeController {
       //  theModel.addAttribute("theDate",new java.util.Date());
         return "index";
     }
+    @RequestMapping("/login")
+    public String login() {
+        return "login.html";
+    }
+
 }

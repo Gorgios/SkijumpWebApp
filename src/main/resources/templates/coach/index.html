@@ -3,15 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Skijumping home page</title>
+    <title>Secured</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <h1>Skoki Narciarskie</h1>
-    <p>Zapraszamy zobaczyc trenerow</p>
-    <ul>
-        <li> <a href="/coaches/list" th:href="@{/coaches/list}">Pokaz liste trenerow</a></li>
-    </ul>
+    <h1>This is a secured page!</h1>
+    <p><a href="/" th:href="@{/}">Back to home page</a></p>
 </div>
 </body>
 </html>
