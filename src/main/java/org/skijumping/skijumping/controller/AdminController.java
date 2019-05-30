@@ -5,15 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeController {
-    @RequestMapping("home")
+public class AdminController {
+    @RequestMapping("/")
     public String homePage(Model theModel){
       //  theModel.addAttribute("theDate",new java.util.Date());
-        return "index";
+        return "admin/index";
     }
     @RequestMapping("/login")
     public String login() {
-        return "login.html";
+        return "login";
     }
 
 }

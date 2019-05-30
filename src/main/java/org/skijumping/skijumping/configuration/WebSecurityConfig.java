@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/img/**",
                         "/webjars/**").permitAll()
-                .antMatchers("/coaches/list").hasAuthority("JUMPER")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
