@@ -18,6 +18,7 @@ public class Jumper {
     private List<Start> starts;
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

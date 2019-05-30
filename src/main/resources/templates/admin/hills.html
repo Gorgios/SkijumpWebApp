@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Skocznie</title>
+
+</head>
+<body>
+<a th:href="@{/admin/hills/addHill}"
+   class="btn btn-info btn-sm">
+    Dodaj skocznie
+</a>
+<table class="table table-hover table-dark">
+    <thead>
+    <tr >
+        <th scope="col">#</th>
+        <th scope="col">Nazwa skoczni</th>
+        <th scope="col">Kraj</th>
+        <th scope="col">Punkt K</th>
+        <th scope="col">Wielkosc skoczni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message : ${messages}">
+        <th scope="row" th:text="${message.id}" ></th>
+        <td th:text="${message.name}"></td>
+        <td th:text="${message.country}"></td>
+        <td th:text="${message.kPoint}"></td>
+        <td th:text="${message.hillSize}"></td>
+
+        <td>
+            <div class="row">
+            <div class="col-small">
+            <form action="#" th:action="@{/admin/hills/updateHill}" method="POST">
+
+                <input type="hidden" name="hillId" th:value="${message.id}" />
+                <button type="submit" class="btn btn-info btn-sm">Modyfikuj</button>
+
+            </form>
+            </div>
+            <div class="col-small">
+                <!-- Add "delete" button/link -->
+                <form action="#" th:action="@{/admin/hills/delete}" method="POST">
+
+                    <input type="hidden" name="hillId" th:value="${message.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="if (!(confirm('Czy na pewno chcesz usunac skocznie?'))) return false">
+                        Delete
+                    </button>
+
+                </form>
+            </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

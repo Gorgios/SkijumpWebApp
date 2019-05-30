@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dodaj skocznie</title>
+</head>
+<body>
+<div class="container">
+
+
+    <p class="h4 mb-4">Zapisz Skocznie</p>
+            <form action="#" th:action="save"
+                            th:object="${hill}" method="POST" >
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <input type="text" th:field="*{name}" class="form-control"  placeholder="Nazwa">
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{country}" class="form-control"  placeholder="Kraj">
+            </div>
+                <div class="form-group">
+                    <input type="number" th:field="*{kPoint}" class="form-control"  placeholder="Punkt K">
+                </div>
+                <div class="form-group">
+                    <input type="number" th:field="*{hillSize}" class="form-control"  placeholder="Punkt HS">
+                </div>
+            <button type="submit" class="btn btn-info btn-sm">Zapisz</button>
+        </form>
+</div>
+</body>
+</html>

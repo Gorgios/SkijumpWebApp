@@ -9,8 +9,8 @@ public class Hill {
     private int id;
     private String name;
     private String country;
-    private int hillSize;
-    private int kPoint;
+    private int hillSize =140;
+    private int kPoint =120 ;
     private List<Competition> competitions;
 
     public Hill () {
@@ -19,7 +19,7 @@ public class Hill {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

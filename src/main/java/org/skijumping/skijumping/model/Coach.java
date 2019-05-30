@@ -20,7 +20,7 @@ public class Coach {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -65,5 +65,10 @@ public class Coach {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return  firstName  + " " + lastName;
     }
 }
