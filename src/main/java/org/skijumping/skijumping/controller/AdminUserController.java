@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("admin/roles")
+@RequestMapping("admin/users")
 public class AdminUserController {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -32,7 +32,8 @@ public class AdminUserController {
     public String addUser(Model theModel){
         User user = new User();
         theModel.addAttribute("user",user);
-        return "registration";
+        theModel.addAttribute("roles", roleRepository.findAll());
+        return "admin/registration";
     }
     @PostMapping("/save")
     public String saveTeam(@ModelAttribute("user") User user){
@@ -41,7 +42,7 @@ public class AdminUserController {
         role.setRole("USER");
         user.setRole(role);
         userRepository.save(user);
-        return "redirect:/admin/teams/";
+        return "redirect:/admin/users/";
     }
     @PostMapping("/updateUser")
     public String updateUser(@RequestParam("userId") int theId,
@@ -49,6 +50,16 @@ public class AdminUserController {
         Optional<User> user = userRepository.findById(theId);
         theModel.addAttribute("roles", roleRepository.findAll());
         theModel.addAttribute("user",user);
-        return "admin/edit-user";
+        return "admin/users";
+    }
+    @PostMapping("/delete")
+    public String delete(@RequestParam("userId") int theId) {
+
+        // delete the employee
+        userRepository.deleteById(theId);
+
+        // redirect to /employees/list
+        return "redirect:/admin/users/";
+
     }
 }

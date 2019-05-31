@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Zawody</title>
+
+</head>
+<body>
+<a th:href="@{/admin/competitions/zawody}"
+   class="btn btn-primary btn-sm mb-3">
+    Rozegraj zawody
+</a>
+<table class="table table-hover table-dark">
+    <thead>
+    <tr >
+        <th scope="col">Skocznia</th>
+        <th scope="col">Kraj</th>
+        <th scope="col">Data</th>
+        <th scope="col">Turnieje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="message : ${competitions}">
+        <th th:text="${message.getHill().getName()}" ></th>
+        <th th:text="${message.getHill().getCountry()}" ></th>
+        <td th:text="${message.dateof}"></td>
+        <td >
+        <option value="0">Turnieje</option>
+        <option th:each="operator : ${message.getTournees()}" th:value= "${operator.id}" th:text="${operator.name}"></option>
+            </td>
+    </tr>
+
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

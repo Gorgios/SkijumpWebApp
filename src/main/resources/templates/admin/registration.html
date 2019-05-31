@@ -10,7 +10,7 @@
 <div class="container">
 
 
-    <p class="h4 mb-4">Zarejestruj sie !</p>
+    <p class="h4 mb-4">Zarejestruj uzytkownika !</p>
             <form action="#" th:action="save"
                             th:object="${user}" method="POST" >
             <input type="hidden" th:field="*{id}" />
@@ -23,6 +23,12 @@
             <div class="form-group">
                 <input th:field="*{email}" class="form-control" type="email" placeholder="Email">
             </div>
+                <div class="form-group blu-margin">
+                    <select class="form-control"  th:field="*{role}" id="dropCoaches">
+                        <option value="0">Kompentencje</option>
+                        <option th:each="operator : ${roles}" th:value= "${operator.id}" th:text="${operator.role}"></option>
+                    </select>
+                </div>
             <button type="submit" class="btn btn-info btn-sm">Rejestracja</button>
         </form>
 </div>

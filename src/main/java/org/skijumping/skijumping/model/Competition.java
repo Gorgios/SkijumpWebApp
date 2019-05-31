@@ -65,4 +65,5 @@ public class Competition {
     public void setStarts(List<Start> starts) {
         this.starts = starts;
     }
+
 }

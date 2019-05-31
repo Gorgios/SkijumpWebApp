@@ -5,13 +5,14 @@
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Trenerzy</title>
-
+    <title>Uzytkownicy</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<a th:href="@{/admin/coaches/addCoach}"
+<a th:href="@{/admin/users/addUser}"
    class="btn btn-primary btn-sm mb-3">
-    Dodaj trenera
+    Dodaj uzytkownika
 </a>
 <table class="table table-hover table-dark">
     <thead>
@@ -25,25 +26,46 @@
     <tbody>
     <tr th:each="message : ${messages}">
         <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.usernamee}"></td>
-        <td th:text="${message.Email}"></td>
+        <td th:text="${message.username}"></td>
+        <td th:text="${message.email}"></td>
         <td th:text="${message.role}"></td>
 
         <td>
             <div class="row">
                 <div class="col-small">
-                    <form action="#" th:action="@{/admin/coaches/updateCoach}" method="POST">
+                    <form action="#" th:action="@{/admin/users/updateUser}" method="POST">
 
-                        <input type="hidden" name="coachId" th:value="${message.id}" />
-                        <button type="submit" class="btn btn-info btn-sm">Modyfikuj</button>
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Zmien role
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
 
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modal Header</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Some text in the modal.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </form>
+
                 </div>
                 <div class="col-small">
                     <!-- Add "delete" button/link -->
-                    <form action="#" th:action="@{/admin/coaches/delete}" method="POST">
+                    <form action="#" th:action="@{/admin/users/delete}" method="POST">
 
-                        <input type="hidden" name="coachId" th:value="${message.id}" />
+                        <input type="hidden" name="userId" th:value="${message.id}" />
                         <button type="submit" class="btn btn-danger btn-sm"
                                 onclick="if (!(confirm('Czy na pewno chcesz usunac trenera?'))) return false">
                             Delete
@@ -57,5 +79,6 @@
     </tbody>
 
 </table>
+
 </body>
 </html>

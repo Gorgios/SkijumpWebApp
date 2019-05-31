@@ -1,25 +1,53 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "competition_jumper", schema = "mydb", catalog = "")
 public class Start {
     private Jumper jumper;
     private Competition competition;
-    private int postion;
+    private double points;
     private int id;
+    private int first_jump;
+    private int second_jump;
 
+    public Start(){
 
-    @Basic
-    @Column(name = "postion")
-    public int getPostion() {
-        return postion;
+    }
+    public Start(Jumper jumper, Competition competition, int first_jump, int second_jump) {
+        this.jumper = jumper;
+        this.competition = competition;
+        this.first_jump = first_jump;
+        this.second_jump = second_jump;
+        this.points = makePoints(first_jump,second_jump);
     }
 
-    public void setPostion(int postion) {
-        this.postion = postion;
+    @Basic
+    @Column(name = "points")
+    public double getPoints() {
+        return points;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
+    }
+
+    @Column(name="first_jump")
+    public int getFirst_jump() {
+        return first_jump;
+    }
+
+    public void setFirst_jump(int first_jump) {
+        this.first_jump = first_jump;
+    }
+    @Column(name="second_jump")
+    public int getSecond_jump() {
+        return second_jump;
+    }
+
+    public void setSecond_jump(int second_jump) {
+        this.second_jump = second_jump;
     }
 
     @Id
@@ -51,4 +79,13 @@ public class Start {
     public void setCompetition(Competition competition) {
         this.competition = competition;
     }
+
+    public double makePoints(int fj, int sj){
+        if (getCompetition().getHill().getkPoint() < 185)
+            points = fj * 1.8 + sj * 1.8;
+        else
+            points = fj * 1.2 + sj * 1.2;
+        return points;
+    }
+
 }
