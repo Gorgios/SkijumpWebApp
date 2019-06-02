@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Competition {
+public class Competition  {
     private int id;
     private Hill hill;
     private Date dateof;
@@ -49,7 +49,12 @@ public class Competition {
     public void setDateof(Date dateof) {
         this.dateof = dateof;
     }
-    @ManyToMany(mappedBy = "competitions")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "competition_tournee",
+            joinColumns = { @JoinColumn(name = "id_competition") },
+            inverseJoinColumns = { @JoinColumn(name = "id_tournee") }
+    )
     public Set<Tournee> getTournees() {
         return tournees;
     }

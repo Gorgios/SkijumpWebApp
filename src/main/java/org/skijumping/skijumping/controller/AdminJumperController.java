@@ -1,11 +1,16 @@
 package org.skijumping.skijumping.controller;
 
+import org.skijumping.skijumping.model.Clasification;
 import org.skijumping.skijumping.model.Jumper;
+import org.skijumping.skijumping.model.Tournee;
+import org.skijumping.skijumping.repository.ClasificationRepository;
 import org.skijumping.skijumping.repository.JumperRepository;
 import org.skijumping.skijumping.repository.TeamRepository;
+import org.skijumping.skijumping.repository.TourneeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -15,11 +20,15 @@ public class AdminJumperController {
 
     private JumperRepository jumperRepository;
     private TeamRepository teamRepository;
+    private ClasificationRepository clasificationRepository;
+    private TourneeRepository tourneeRepository;
 
-
-    public AdminJumperController(JumperRepository jumperRepository, TeamRepository teamRepository) {
+    public AdminJumperController(JumperRepository jumperRepository, TeamRepository teamRepository, ClasificationRepository clasificationRepository,
+                                 TourneeRepository tourneeRepository) {
         this.jumperRepository = jumperRepository;
         this.teamRepository = teamRepository;
+        this.tourneeRepository = tourneeRepository;
+        this.clasificationRepository = clasificationRepository;
     }
 
     @GetMapping("/")
@@ -47,6 +56,13 @@ public class AdminJumperController {
     @PostMapping("/save")
     public String saveJumper(@ModelAttribute("jumper") Jumper jumper) {
         jumperRepository.save(jumper);
+        for (Tournee t : tourneeRepository.findAll()) {
+            Clasification  clasification = new Clasification();
+            clasification.setJumper(jumper);
+            clasification.setTournee(t);
+            clasification.setPoints(0);
+            clasificationRepository.save(clasification);
+        }
         return "redirect:/admin/jumpers/";
    }
     @PostMapping("/delete")
@@ -56,4 +72,11 @@ public class AdminJumperController {
         return "redirect:/admin/jumpers/";
 
     }
-}
+    @GetMapping("/hehe")
+    public ModelAndView dodaj(@RequestParam("jumperId") int theId,
+                              Model theModel) {
+        Jumper jumper = jumperRepository.findById(theId).orElse(null);
+        jumper.setFirstName(jumper.getFirstName() + "XD");
+        return new ModelAndView ("hehe","jumperModel",theModel);
+    }
+    }

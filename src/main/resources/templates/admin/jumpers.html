@@ -20,6 +20,9 @@
         <th scope="col">Nazwisko</th>
         <th scope="col">Data urodzenia</th>
         <th scope="col">Druzyna</th>
+        <th scope="col">Sila wybicia</th>
+        <th scope="col">Technika lotu</th>
+        <th scope="col">Technika ladowania</th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +32,9 @@
         <td th:text="${message.lastName}"></td>
         <th scope="row" th:text="${message.birthDate}" ></th>
         <td th:text="${message.getTeam().name}"></td>
+        <td th:text="${message.takeOf}"></td>
+        <td th:text="${message.technique}"></td>
+        <td th:text="${message.landing}"></td>
 
         <td>
             <div class="row">

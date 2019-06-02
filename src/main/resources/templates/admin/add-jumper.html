@@ -29,6 +29,15 @@
                 <option th:each="operator : ${teams}" th:value= "${operator.id}" th:text="${operator.name}"}></option>
             </select>
         </div>
+        <div class="form-group blu-margin">
+            <input type="number" th:field="*{takeOf}" class="form-control"  placeholder="Sila wybicia (MAX 20)">
+        </div>
+        <div class="form-group blu-margin">
+            <input type="number" th:field="*{technique}" class="form-control"  placeholder="Technika lotu (MAX 20)">
+        </div>
+        <div class="form-group blu-margin">
+            <input type="number" th:field="*{landing}" class="form-control"  placeholder="Technika ladowania (MAX 20)">
+        </div>
         <button type="submit" class="btn btn-info btn-sm">Zapisz</button>
     </form>
 </div>

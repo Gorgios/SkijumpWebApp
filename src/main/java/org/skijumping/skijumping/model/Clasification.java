@@ -50,5 +50,19 @@ public class Clasification {
         this.points = points;
     }
 
-
+    public void makePoints(int i){
+       switch (i){
+           case 1: points+=100; break;
+           case 2: points+=80; break;
+           case 3: points+=60; break;
+           case 4: points+=50; break;
+           case 5: points+=45; break;
+           case 6: points+=40; break;
+           case 7: points+=35; break;
+           case 8: points+=30; break;
+           case 9: points+=25; break;
+           case 10: points+=20; break;
+           default: points= points + 30 - i; break;
+       }
+    }
 }

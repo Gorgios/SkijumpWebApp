@@ -4,10 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "competition_jumper", schema = "mydb", catalog = "")
-public class Start {
+public class Start implements Comparable<Start>{
     private Jumper jumper;
     private Competition competition;
-    private double points;
+    private Double points;
     private int id;
     private int first_jump;
     private int second_jump;
@@ -25,11 +25,11 @@ public class Start {
 
     @Basic
     @Column(name = "points")
-    public double getPoints() {
+    public Double getPoints() {
         return points;
     }
 
-    public void setPoints(double points) {
+    public void setPoints(Double points) {
         this.points = points;
     }
 
@@ -80,12 +80,23 @@ public class Start {
         this.competition = competition;
     }
 
-    public double makePoints(int fj, int sj){
+    public Double makePoints(int fj, int sj){
         if (getCompetition().getHill().getkPoint() < 185)
             points = fj * 1.8 + sj * 1.8;
         else
             points = fj * 1.2 + sj * 1.2;
+        java.text.DecimalFormat df=new java.text.DecimalFormat();
+        df.setMaximumFractionDigits(1);
+        df.setMinimumFractionDigits(1);
+        df.format(points);
         return points;
     }
 
+    @Override
+    public int compareTo(Start start) {
+        if (start == null || start.getPoints() == null)
+            return -1;
+        else
+            return this.getPoints().compareTo(start.getPoints());
+    }
 }

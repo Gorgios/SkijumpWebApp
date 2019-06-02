@@ -55,13 +55,7 @@ public class Tournee {
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
     }
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "competition_tournee",
-            joinColumns = { @JoinColumn(name = "id_tournee") },
-            inverseJoinColumns = { @JoinColumn(name = "id_competition") }
-    )
+    @ManyToMany(mappedBy = "tournees")
     public Set<Competition> getCompetitions() {
         return competitions;
     }

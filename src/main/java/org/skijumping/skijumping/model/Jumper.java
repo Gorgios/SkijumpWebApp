@@ -127,7 +127,6 @@ public class Jumper {
 
     public Start makeStart(Competition competition){
         double firstjump,secondjump;
-        LinkedList m = new LinkedList();
         Random generator = new Random();
         int luck=generator.nextInt(10) -5;
         firstjump = competition.getHill().getkPoint()-20 + (takeOf *5 + technique *3 + landing *2)/5 + luck;
@@ -135,5 +134,10 @@ public class Jumper {
         secondjump = competition.getHill().getkPoint()-20 + (takeOf *5 + technique *3 + landing *2)/5 + luck;
         Start start = new Start(this,competition,(int)firstjump,(int)secondjump);
         return start;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }
