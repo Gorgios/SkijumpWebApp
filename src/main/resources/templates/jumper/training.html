@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang = "pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Skoczek </title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="/css/user.css" /> -->
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .progress{
+            width: 60%;
+            height: 50px;
+            margin-left: 20%;
+        }
+        p{
+            color: navy;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            font-size:150%;
+        }
+        button{
+            text-align: center;
+            width: 20%;
+            margin-left: 40%;
+            margin-right: 40%;
+            margin-top: 20px;
+            height: 40px;
+        }
+    </style>
+</head>
+<div>
+\<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/jumper/}"> Strona główna </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/jumper/showInfo}"> Moje dane </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/jumper/training}"> Trening </a>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <a class="navbar-brand mx-auto" th:href="@{#}" th:text="${jumper}">  </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
+            </li>
+            <li th:if="${user}" class="nav-item">
+                <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}" th:text="${'Wyloguj'}" />
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1 style = " text-align:center; color:crimson; font-weight: bolder">Trenuj </h1>
+<div>
+<p th:text="'Sila wybicia: ' + ${jumper.getTakeOf()}"> </p>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"  th:style="'width:' +${jumper.getTakeOf()}*5+'%;'"   th:attr="aria-valuenow=${jumper.getTakeOf()}" aria-valuemin="0" aria-valuemax="20"></div>
+
+</div>
+</div>
+<div>
+    <p th:text="'Technika lotu: ' + ${jumper.getTechnique()}"> </p>
+    <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" th:style="'width:' +${jumper.getTechnique()}*5+'%;'"   th:attr="aria-valuenow=${jumper.getTakeOf()}" aria-valuemin="0" aria-valuemax="20"></div>
+</div>
+</div>
+<div>
+    <p th:text="'Technika ladowania: ' + ${jumper.getLanding()}"> </p>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" th:style="'width:' +${jumper.getLanding()}*5+'%;'"   th:attr="aria-valuenow=${jumper.getTakeOf()}" aria-valuemin="0" aria-valuemax="20"></div>
+</div>
+    <div>
+
+        <form action="#" th:action="@{/jumper/doTrain}" method="POST">
+
+            <input type="hidden" name="jumperId" th:value="${jumper.id}" />
+            <button type="submit" class="btn btn-info btn-sm">Trenuj</button>
+
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

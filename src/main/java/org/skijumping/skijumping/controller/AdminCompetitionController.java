@@ -2,6 +2,7 @@ package org.skijumping.skijumping.controller;
 
 import org.skijumping.skijumping.model.*;
 import org.skijumping.skijumping.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class AdminCompetitionController {
     private StartRepository startRepository;
     private JumperRepository jumperRepository;
 
+    @Autowired
     public AdminCompetitionController(CompetitionRepository competitionRepository,
                                       StartRepository startRepository, HillRepository hillRepository,
                                       TourneeRepository tourneeRepository, JumperRepository jumperRepository,
@@ -51,20 +53,22 @@ public class AdminCompetitionController {
     @PostMapping("/save")
     public String saveCompetition(@ModelAttribute("competition") Competition competition){
         zawody(competition);
-        List<Start> starts = competition.getStarts();
-        List <Clasification> clasification = (List<Clasification>) clasificationRepository.findAll();;
-        Collections.sort(starts);
-        Collections.reverse(starts);
-        for (Tournee t: competition.getTournees()) {
-            for (Clasification c : clasification) {
-                if (c.getTournee() == t)
-                    for (int i = 0; i < starts.size(); i++) {
-                        c.makePoints(i+1);
-                    }
+        int idComp = competition.getId();
+        competitionRepository.save(competition);
+        Competition comp = competitionRepository.findById(competition.getId()).orElse( null);
+        List<Start> starts = startRepository.findAllByCompetition(comp);
+        Collections.sort(starts,Collections.reverseOrder());
+        starts.get(0).getJumper().setCredits(starts.get(0).getJumper().getCredits()+5);
+        starts.get(1).getJumper().setCredits(starts.get(1).getJumper().getCredits()+3);
+        starts.get(2).getJumper().setCredits(starts.get(2).getJumper().getCredits()+1);
+        Clasification clas;
+        for (Tournee t: comp.getTournees()) {
+            for (int i = 0; i < starts.size(); i++) {
+                clas = clasificationRepository.findByJumperAndTournee(starts.get(i).getJumper(), t);
+                clas.makePoints(i + 1);
+               clasificationRepository.save(clas);
             }
         }
-        competitionRepository.save(competition);
-
         return "redirect:/admin/competitions/";
     }
     @RequestMapping("/showCompetition")
@@ -91,6 +95,7 @@ public class AdminCompetitionController {
             start = jumper.makeStart(competition);
             startRepository.save(start);
         }
+
     }
 
 }

@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,10 @@ public class Jumper {
     private Date birthDate;
     private List<Clasification> clasifications;
     private List<Start> starts;
-    private int takeOf;
-    private int landing;
-    private int technique;
-
+    private int takeOf=0;
+    private int landing=0;
+    private int technique=0;
+    private int credits=0;
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -117,6 +118,15 @@ public class Jumper {
         return technique;
     }
 
+    @Column(name="credits")
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
     public void setTechnique(int technique) {
         this.technique = technique;
     }
@@ -125,6 +135,20 @@ public class Jumper {
         this.starts = starts;
     }
 
+    public void makeTraining(){
+        if (credits >= 5){
+            Random generator = new Random();
+            int luck = generator.nextInt(5);
+            switch (luck){
+                case 0: takeOf++; break;
+                case 1: break;
+                case 2: landing ++; break;
+                case 3: technique++; break;
+                default: break;
+            }
+            credits -= 5;
+        }
+    }
     public Start makeStart(Competition competition){
         double firstjump,secondjump;
         Random generator = new Random();

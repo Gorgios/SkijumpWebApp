@@ -6,7 +6,58 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Dodaj trenera</title>
 </head>
-<body>
+<body><nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/admin/}"> Strona główna </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/coaches/}"> Trenerzy </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/teams/}"> Druzyny </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/jumpers/}"> Skoczkowie </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/hills/}"> Skocznie </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/competitions/}"> Zawody </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/tournees/}"> Turnieje </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/users/}"> Uzytkownicy </a>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <a class="navbar-brand mx-auto" th:href="@{#}"> SKOKI - ADMIN </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
+            </li>
+            <li th:if="${user}" class="nav-item">
+                <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}" th:text="${'Wyloguj'}" />
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
 
 

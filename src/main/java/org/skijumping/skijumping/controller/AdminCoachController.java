@@ -2,6 +2,7 @@ package org.skijumping.skijumping.controller;
 
 import org.skijumping.skijumping.model.Coach;
 import org.skijumping.skijumping.repository.CoachRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class AdminCoachController {
 
     private CoachRepository coachRepository;
 
+    @Autowired
     public AdminCoachController(CoachRepository theCoachRepository){
         coachRepository=theCoachRepository;
     }

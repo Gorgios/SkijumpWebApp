@@ -4,6 +4,7 @@ import org.skijumping.skijumping.model.Coach;
 import org.skijumping.skijumping.model.Team;
 import org.skijumping.skijumping.repository.CoachRepository;
 import org.skijumping.skijumping.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("admin/teams")
 public class AdminTeamController {
 
+    @Autowired
     private TeamRepository teamRepository;
     private CoachRepository coachRepository;
     public AdminTeamController(TeamRepository theTeamRepository, CoachRepository theCoachRepository){

@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Clasification {
+public class Clasification implements Comparable<Clasification> {
     private int id;
     private Jumper jumper;
     private Tournee tournee;
-    private int points;
+    private Integer points=0;
 
     @Id
     @Column(name = "id")
@@ -42,11 +42,11 @@ public class Clasification {
 
     @Basic
     @Column(name = "points")
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(Integer points) {
         this.points = points;
     }
 
@@ -64,5 +64,13 @@ public class Clasification {
            case 10: points+=20; break;
            default: points= points + 30 - i; break;
        }
+    }
+
+    @Override
+    public int compareTo(Clasification clasification) {
+        if (clasification == null || clasification.getPoints() == null)
+            return -1;
+        else
+            return this.getPoints().compareTo(clasification.getPoints());
     }
 }

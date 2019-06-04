@@ -7,11 +7,13 @@ import org.skijumping.skijumping.repository.ClasificationRepository;
 import org.skijumping.skijumping.repository.JumperRepository;
 import org.skijumping.skijumping.repository.TeamRepository;
 import org.skijumping.skijumping.repository.TourneeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.xml.ws.Action;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +25,7 @@ public class AdminJumperController {
     private ClasificationRepository clasificationRepository;
     private TourneeRepository tourneeRepository;
 
+    @Autowired
     public AdminJumperController(JumperRepository jumperRepository, TeamRepository teamRepository, ClasificationRepository clasificationRepository,
                                  TourneeRepository tourneeRepository) {
         this.jumperRepository = jumperRepository;
@@ -71,12 +74,5 @@ public class AdminJumperController {
         jumperRepository.deleteById(theId);
         return "redirect:/admin/jumpers/";
 
-    }
-    @GetMapping("/hehe")
-    public ModelAndView dodaj(@RequestParam("jumperId") int theId,
-                              Model theModel) {
-        Jumper jumper = jumperRepository.findById(theId).orElse(null);
-        jumper.setFirstName(jumper.getFirstName() + "XD");
-        return new ModelAndView ("hehe","jumperModel",theModel);
     }
     }

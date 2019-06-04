@@ -6,6 +6,7 @@ import org.skijumping.skijumping.model.User;
 import org.skijumping.skijumping.repository.CoachRepository;
 import org.skijumping.skijumping.repository.RoleRepository;
 import org.skijumping.skijumping.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ public class AdminUserController {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
 
+    @Autowired
     public AdminUserController(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;

@@ -8,12 +8,11 @@
 
 </head>
 <body>
-
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/admin}"> Strona główna </a>
+                <a class="nav-link" th:href="@{/admin/}"> Strona główna </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/admin/coaches/}"> Trenerzy </a>
@@ -39,7 +38,7 @@
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" th:href="@{#}"> PANEL ADMINISTRATORA </a>
+        <a class="navbar-brand mx-auto" th:href="@{#}"> SKOKI - ADMIN </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,6 +60,7 @@
         </ul>
     </div>
 </nav>
+
 <a th:href="@{/admin/competitions/addCompetition}"
    class="btn btn-primary btn-sm mb-3">
     Rozegraj zawody

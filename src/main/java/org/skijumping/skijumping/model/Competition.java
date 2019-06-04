@@ -49,7 +49,7 @@ public class Competition  {
     public void setDateof(Date dateof) {
         this.dateof = dateof;
     }
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST })
     @JoinTable(
             name = "competition_tournee",
             joinColumns = { @JoinColumn(name = "id_competition") },
@@ -71,4 +71,14 @@ public class Competition  {
         this.starts = starts;
     }
 
+    @Override
+    public String toString() {
+        return "Competition{" +
+                "id=" + id +
+                ", hill=" + hill +
+                ", dateof=" + dateof +
+                ", tournees=" + tournees +
+                ", starts=" + starts +
+                '}';
+    }
 }

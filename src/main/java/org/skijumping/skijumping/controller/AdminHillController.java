@@ -6,6 +6,7 @@ import org.skijumping.skijumping.model.Team;
 import org.skijumping.skijumping.repository.CoachRepository;
 import org.skijumping.skijumping.repository.HillRepository;
 import org.skijumping.skijumping.repository.TeamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class AdminHillController {
 
    private HillRepository hillRepository;
 
+   @Autowired
     public AdminHillController(HillRepository hillRepository) {
         this.hillRepository = hillRepository;
     }

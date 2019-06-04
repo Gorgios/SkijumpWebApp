@@ -91,12 +91,23 @@ public class Start implements Comparable<Start>{
         df.format(points);
         return points;
     }
-
     @Override
     public int compareTo(Start start) {
         if (start == null || start.getPoints() == null)
             return -1;
         else
             return this.getPoints().compareTo(start.getPoints());
+    }
+
+    @Override
+    public String toString() {
+        return "Start{" +
+                "jumper=" + jumper +
+                ", competition=" + competition +
+                ", points=" + points +
+                ", id=" + id +
+                ", first_jump=" + first_jump +
+                ", second_jump=" + second_jump +
+                '}';
     }
 }

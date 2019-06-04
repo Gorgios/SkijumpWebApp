@@ -36,23 +36,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(
-                        "/js/**",
-                        "/css/**",
-                        "/img/**",
-                        "/webjars/**").permitAll()
+                .antMatchers("/", "/resources/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/jumper/**").hasAuthority("JUMPER")
+                .antMatchers("/fis/**").hasAuthority("FIS")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/successlogin")
+                .defaultSuccessUrl("/loginSuccess")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/home")
-                .permitAll();
+                .logoutSuccessUrl("/")
+                .and().exceptionHandling().accessDeniedPage("/403");
     }
 
 
