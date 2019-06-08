@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "competition_jumper", schema = "mydb", catalog = "")
@@ -81,14 +82,13 @@ public class Start implements Comparable<Start>{
     }
 
     public Double makePoints(int fj, int sj){
-        if (getCompetition().getHill().getkPoint() < 185)
-            points = fj * 1.8 + sj * 1.8;
+        int k = getCompetition().getHill().getkPoint();
+        if (k < 185)
+            points = 114 + (fj-k) * 1.8 + 114 + (sj-k) * 1.8;
         else
-            points = fj * 1.2 + sj * 1.2;
-        java.text.DecimalFormat df=new java.text.DecimalFormat();
-        df.setMaximumFractionDigits(1);
-        df.setMinimumFractionDigits(1);
-        df.format(points);
+            points = 114 + (fj-k) * 1.2 + 114 + (sj-k) * 1.2;
+        DecimalFormat dc = new DecimalFormat("##.##");
+        points = Double.parseDouble(dc.format(points));
         return points;
     }
     @Override

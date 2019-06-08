@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang = "pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> Skoczek </title>
+    <title> FIS-HomePage </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="/css/user.css" /> -->
@@ -12,18 +12,16 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/jumper/}"> Strona główna </a>
+                <a class="nav-link" th:href="@{/fis/}"> Strona główna </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/jumper/showData}"> Moje dane </a>
+                <a class="nav-link" th:href="@{/fis/competitions}"> Zawody </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/jumper/training}"> Trening </a>
-            </li>
+
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" th:href="@{#}" th:text="${jumper}">  </a>
+        <a class="navbar-brand mx-auto" > STRONA ZARZADCY </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,35 +43,6 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class = "col-12 p-0">
-            <div class = "jumbotron min-vh-100 text-center d-flex flex-column justify-content-center">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th th:if="${news}" class="text-info font-italic font-weight-bold h1" th:text="${news.title}"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:if="${news}" th:text="${news.content}"></td>
-                    </tr>
-                    <tr>
-                        <td th:if="${news}" th:text="'Dodał: ' + ${news.user.username}"></td>
-                    </tr>
-                    <tr>
-                        <td th:if="${news}" th:text="'Data dodania: ' + ${news.addDate}"></td>
-                    </tr>
-                    <tr>
-                        <td><a class="text-success h4" th:href="@{/news}" th:text="'Wszystkie aktualności'"></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 <footer class="fixed-bottom">
     <div class="container text-center font-italic">
         <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>

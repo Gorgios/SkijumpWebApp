@@ -141,7 +141,6 @@ public class Jumper {
             int luck = generator.nextInt(5);
             switch (luck){
                 case 0: takeOf++; break;
-                case 1: break;
                 case 2: landing ++; break;
                 case 3: technique++; break;
                 default: break;
@@ -153,9 +152,9 @@ public class Jumper {
         double firstjump,secondjump;
         Random generator = new Random();
         int luck=generator.nextInt(10) -5;
-        firstjump = competition.getHill().getkPoint()-20 + (takeOf *5 + technique *3 + landing *2)/5 + luck;
+        firstjump = competition.getHill().getkPoint()-20 + (takeOf *4 + technique *3 + landing *3)/5 + luck;
         luck=generator.nextInt(10) -5;
-        secondjump = competition.getHill().getkPoint()-20 + (takeOf *5 + technique *3 + landing *2)/5 + luck;
+        secondjump = competition.getHill().getkPoint()-20 + (takeOf *4 + technique *3 + landing *3)/5 + luck;
         Start start = new Start(this,competition,(int)firstjump,(int)secondjump);
         return start;
     }

@@ -5,30 +5,8 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="/css/user.css" /> -->
+    <link rel="stylesheet" href="../css/jumper.css" />
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-        .progress{
-            width: 60%;
-            height: 50px;
-            margin-left: 20%;
-        }
-        p{
-            color: navy;
-            font-weight: bold;
-            margin-top: 20px;
-            text-align: center;
-            font-size:150%;
-        }
-        button{
-            text-align: center;
-            width: 20%;
-            margin-left: 40%;
-            margin-right: 40%;
-            margin-top: 20px;
-            height: 40px;
-        }
-    </style>
 </head>
 <div>
 \<nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -38,7 +16,7 @@
                 <a class="nav-link" th:href="@{/jumper/}"> Strona główna </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/jumper/showInfo}"> Moje dane </a>
+                <a class="nav-link" th:href="@{/jumper/showData}"> Moje dane </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/jumper/training}"> Trening </a>
@@ -68,7 +46,7 @@
         </ul>
     </div>
 </nav>
-<h1 style = " text-align:center; color:crimson; font-weight: bolder">Trenuj </h1>
+<h1 >Trenuj </h1>
 <div>
 <p th:text="'Sila wybicia: ' + ${jumper.getTakeOf()}"> </p>
 <div class="progress">

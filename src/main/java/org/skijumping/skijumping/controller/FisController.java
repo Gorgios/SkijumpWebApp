@@ -7,14 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
-@RequestMapping("admin/competitions")
-public class AdminCompetitionController {
+@RequestMapping("/fis")
+public class FisController {
 
+
+    private UserRepository userRepository;
     private ClasificationRepository clasificationRepository;
     private CompetitionRepository competitionRepository;
     private HillRepository hillRepository;
@@ -23,35 +25,57 @@ public class AdminCompetitionController {
     private JumperRepository jumperRepository;
 
     @Autowired
-    public AdminCompetitionController(CompetitionRepository competitionRepository,
-                                      StartRepository startRepository, HillRepository hillRepository,
-                                      TourneeRepository tourneeRepository, JumperRepository jumperRepository,
-                                      ClasificationRepository clasificationRepository) {
+    public FisController(UserRepository userRepository, ClasificationRepository clasificationRepository,
+                         CompetitionRepository competitionRepository, HillRepository hillRepository,
+                         TourneeRepository tourneeRepository, StartRepository startRepository, JumperRepository jumperRepository) {
+        this.userRepository = userRepository;
+        this.clasificationRepository = clasificationRepository;
         this.competitionRepository = competitionRepository;
         this.hillRepository = hillRepository;
         this.tourneeRepository = tourneeRepository;
         this.startRepository = startRepository;
         this.jumperRepository = jumperRepository;
-        this.clasificationRepository = clasificationRepository;
     }
 
-    @GetMapping("/")
-    public String listCompetitions(Model theModel){
-       theModel.addAttribute("competitions" , competitionRepository.findAll());
-       return "admin/competition";
-   }
-    @GetMapping("/addCompetition")
-    public String addCompetition(Model theModel) {
-        Competition competition = new Competition();
 
+    @GetMapping("/")
+    public String jumperHomePage(Model theModel, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
+
+        return "fis/index";
+    }
+    @GetMapping("/competitions")
+    public String competition(Model theModel, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
+        theModel.addAttribute("competitions",competitionRepository.findAll());
+        return "fis/competitions";
+    }
+    @GetMapping("/addCompetition")
+    public String addCompetition(Model theModel, Principal principal) {
+        Competition competition = new Competition();
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
         theModel.addAttribute("tournees", tourneeRepository.findAll());
         theModel.addAttribute("hills",hillRepository.findAll());
         theModel.addAttribute("competition",competition);
-        return "admin/add-competitions";
+        return "fis/add-competitions";
     }
+    @RequestMapping("/showCompetition")
+    public String showCompetition(@RequestParam("competitionId") int theId,
+                                  Model theModel, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
+        Competition competition = competitionRepository.findById(theId).orElse(null);
 
+        List<Start> starts = competition.getStarts();
+        Collections.sort(starts,Collections.reverseOrder());
+        theModel.addAttribute("starts",starts);
+        return "fis/competition-single";
+    }
     @PostMapping("/save")
-    public String saveCompetition(@ModelAttribute("competition") Competition competition){
+    public String doCompetition (@ModelAttribute("competition") Competition competition){
         zawody(competition);
         int idComp= competition.getId();
         competitionRepository.save(competition);
@@ -66,29 +90,18 @@ public class AdminCompetitionController {
             for (int i = 0; i < starts.size(); i++) {
                 clas = clasificationRepository.findByJumperAndTournee(starts.get(i).getJumper(), t);
                 clas.makePoints(i + 1);
-               clasificationRepository.save(clas);
+                clasificationRepository.save(clas);
             }
         }
-        return "redirect:/admin/competitions/";
+        return "redirect:/fis/";
     }
-    @RequestMapping("/showCompetition")
-    public String showCompetition(@RequestParam("competitionId") int theId,
-                             Model theModel) {
-        Competition competition = competitionRepository.findById(theId).orElse(null);
-
-        List<Start> starts = competition.getStarts();
-        Collections.sort(starts,Collections.reverseOrder());
-        theModel.addAttribute("starts",starts);
-        return "admin/competition-single";
-    }
-    @PostMapping("/delete")
+    @PostMapping("/deleteCompetition")
     public String delete(@RequestParam("competitionId") int theId) {
 
         competitionRepository.deleteById(theId);
-        return "redirect:/admin/competitions/";
+        return "redirect:/fis/competitions";
 
     }
-
     public void zawody(Competition competition){
         Start start;
         for (Jumper jumper : jumperRepository.findAll() ){
@@ -98,5 +111,4 @@ public class AdminCompetitionController {
         }
 
     }
-
 }

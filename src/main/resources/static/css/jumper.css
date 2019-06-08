@@ -1,0 +1,43 @@
+
+p{
+    color: navy;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    font-size:150%;
+}
+.col-small button{
+    text-align: center;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 20px;
+    height: 40px;
+}
+button{
+    text-align: center;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 20px;
+    height: 40px;
+}
+
+
+h1{
+    text-align:center;
+    color:crimson;
+    font-weight: bolder;
+}
+.progress{
+    width: 60%;
+    height: 50px;
+    margin-left: 20%;
+}
+#tableContener{
+    margin-top: 40px;
+    width: 60%;
+    alignment: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}

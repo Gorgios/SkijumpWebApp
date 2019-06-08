@@ -51,7 +51,14 @@ public class JumperController {
         theModel.addAttribute("user",user);
         theModel.addAttribute("jumper",jumper);
         return "jumper/training";}
-
+    @GetMapping("/showData")
+    public String showData(Model theModel, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        Jumper jumper = jumperRepository.findByUser(user);
+        theModel.addAttribute("user",user);
+        theModel.addAttribute("message",jumper);
+        return "jumper/jumper-data";
+    }
         @PostMapping("/doTrain")
     public String doTrain(@RequestParam("jumperId") int theId){
         Jumper jumper = jumperRepository.findById(theId).orElse(null);
