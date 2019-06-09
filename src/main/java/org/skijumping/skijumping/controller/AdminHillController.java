@@ -9,8 +9,10 @@ import org.skijumping.skijumping.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +50,14 @@ public class AdminHillController {
     }
 
     @PostMapping("/save")
-    public String saveTeam(@ModelAttribute("hill") Hill hill){
-       hillRepository.save(hill);
-        return "redirect:/admin/hills/";
+    public String saveTeam(@Valid  @ModelAttribute("hill") Hill hill, BindingResult bindingResult){
+       if (bindingResult.hasErrors()){
+           return "admin/add-hill";
+       }
+       else {
+           hillRepository.save(hill);
+           return "redirect:/admin/hills/";
+       }
    }
     @PostMapping("/delete")
     public String delete(@RequestParam("hillId") int theId) {

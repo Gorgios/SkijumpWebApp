@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Tournee {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @Basic
     @Column(name = "name")
     public String getName() {
@@ -35,7 +36,7 @@ public class Tournee {
     public void setName(String name) {
         this.name = name;
     }
-
+    @NotNull
     @Basic
     @Column(name = "date_start")
     public Date getDateStart() {

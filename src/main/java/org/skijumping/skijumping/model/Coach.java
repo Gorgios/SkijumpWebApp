@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class Coach {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @Column(name = "first_name")
     public String getFirstName() {
         return firstName;
@@ -37,7 +38,7 @@ public class Coach {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @NotNull
     @Column(name = "last_name")
     public String getLastName() {
         return lastName;
@@ -46,7 +47,7 @@ public class Coach {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    @NotNull
     @Column(name = "birth_date")
     public Date getBirthDate() {
         return birthDate;

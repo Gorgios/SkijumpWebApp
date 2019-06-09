@@ -42,7 +42,27 @@ public class FisController {
     public String jumperHomePage(Model theModel, Principal principal){
         User user = userRepository.findByUsername(principal.getName());
         theModel.addAttribute("user",user);
-
+        theModel.addAttribute("competitions",competitionRepository.findAll());
+        List<Clasification> clas = clasificationRepository
+                .findAllByTournee(tourneeRepository.findById(2).orElse(null));
+        Collections.sort(clas, Collections.reverseOrder());
+        theModel.addAttribute("worldCup",clas);
+        clas = clasificationRepository
+                .findAllByTournee(tourneeRepository.findById(3).orElse(null));
+        Collections.sort(clas, Collections.reverseOrder());
+        theModel.addAttribute("tcs",  clas);
+        clas = clasificationRepository
+                .findAllByTournee(tourneeRepository.findById(4).orElse(null));
+        Collections.sort(clas, Collections.reverseOrder());
+        theModel.addAttribute("w5",  clas);
+        clas = clasificationRepository
+                .findAllByTournee(tourneeRepository.findById(5).orElse(null));
+        Collections.sort(clas, Collections.reverseOrder());
+        theModel.addAttribute("rawAir",  clas);
+        clas = clasificationRepository
+                .findAllByTournee(tourneeRepository.findById(6).orElse(null));
+        Collections.sort(clas, Collections.reverseOrder());
+        theModel.addAttribute("planica7",  clas);
         return "fis/index";
     }
     @GetMapping("/competitions")

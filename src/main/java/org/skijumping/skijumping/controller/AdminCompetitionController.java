@@ -5,8 +5,10 @@ import org.skijumping.skijumping.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -51,25 +53,31 @@ public class AdminCompetitionController {
     }
 
     @PostMapping("/save")
-    public String saveCompetition(@ModelAttribute("competition") Competition competition){
-        zawody(competition);
-        int idComp= competition.getId();
-        competitionRepository.save(competition);
-        Competition comp = competitionRepository.findById(idComp).orElse(null);
-        List<Start> starts = startRepository.findAllByCompetition(comp);
-        Collections.sort(starts,Collections.reverseOrder());
-        starts.get(0).getJumper().setCredits(starts.get(0).getJumper().getCredits()+5);
-        starts.get(1).getJumper().setCredits(starts.get(1).getJumper().getCredits()+3);
-        starts.get(2).getJumper().setCredits(starts.get(2).getJumper().getCredits()+1);
-        Clasification clas;
-        for (Tournee t: comp.getTournees()) {
-            for (int i = 0; i < starts.size(); i++) {
-                clas = clasificationRepository.findByJumperAndTournee(starts.get(i).getJumper(), t);
-                clas.makePoints(i + 1);
-               clasificationRepository.save(clas);
-            }
+    public String saveCompetition(@Valid @ModelAttribute("competition") Competition competition, BindingResult bindingResult, Model theModel){
+        if (bindingResult.hasErrors()){
+            theModel.addAttribute("tournees", tourneeRepository.findAll());
+            theModel.addAttribute("hills",hillRepository.findAll());
+            return "admin/add-competitions";
         }
-        return "redirect:/admin/competitions/";
+        else {
+            zawody(competition);
+            int idComp = competition.getId();
+            competitionRepository.save(competition);
+            Competition comp = competitionRepository.findById(idComp).orElse(null);
+            List<Start> starts = startRepository.findAllByCompetition(comp);
+            Collections.sort(starts, Collections.reverseOrder());
+            for (Start s: starts)
+                s.getJumper().setCredits(s.getJumper().getCredits()+2);
+            Clasification clas;
+            for (Tournee t : comp.getTournees()) {
+                for (int i = 0; i < starts.size(); i++) {
+                    clas = clasificationRepository.findByJumperAndTournee(starts.get(i).getJumper(), t);
+                    clas.makePoints(i + 1);
+                    clasificationRepository.save(clas);
+                }
+            }
+            return "redirect:/admin/competitions/";
+        }
     }
     @RequestMapping("/showCompetition")
     public String showCompetition(@RequestParam("competitionId") int theId,

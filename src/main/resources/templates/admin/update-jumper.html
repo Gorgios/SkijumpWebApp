@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/admin.css" />
-    <title>Skocznie</title>
-
+    <title>Dodaj skoczka</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<body><nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -55,55 +53,42 @@
         </ul>
     </div>
 </nav>
-<a th:href="@{/admin/hills/addHill}"
-   class="btn btn-info btn-sm">
-    Dodaj skocznie
-</a>
-<table class="table table-hover table-dark">
-    <thead>
-    <tr >
-        <th scope="col">#</th>
-        <th scope="col">Nazwa skoczni</th>
-        <th scope="col">Kraj</th>
-        <th scope="col">Punkt K</th>
-        <th scope="col">Wielkosc skoczni</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="message : ${messages}">
-        <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.name}"></td>
-        <td th:text="${message.country}"></td>
-        <td th:text="${message.kPoint}"></td>
-        <td th:text="${message.hillSize}"></td>
+<div class="container">
 
-        <td>
-            <div class="row">
-            <div class="col-small">
-            <form action="#" th:action="@{/admin/hills/updateHill}" method="POST">
 
-                <input type="hidden" name="hillId" th:value="${message.id}" />
-                <button type="submit" class="btn btn-info btn-sm">Modyfikuj</button>
-
-            </form>
-            </div>
-            <div class="col-small">
-                <!-- Add "delete" button/link -->
-                <form action="#" th:action="@{/admin/hills/delete}" method="POST">
-
-                    <input type="hidden" name="hillId" th:value="${message.id}" />
-                    <button type="submit" class="btn btn-danger btn-sm"
-                            onclick="if (!(confirm('Czy na pewno chcesz usunac skocznie?'))) return false">
-                        Delete
-                    </button>
-
-                </form>
-            </div>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-
-</table>
+    <p class="h4 mb-4">Zapisz Skoczka</p>
+    <form action="#" th:action="save"
+          th:object="${jumper}" method="POST" >
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group blu-margin">
+            <input type="text" th:field="*{firstName}" class="form-control"  placeholder="Imie">
+        </div>
+        <div class="form-group blu-margin">
+            <input type="text" th:field="*{lastName}" class="form-control"  placeholder="Nazwisko">
+        </div>
+        <div class="form-group">
+            <input th:field="*{birthDate}" class="form-control" type="date" value="2011-08-19" id="example-date-input">
+        </div>
+        <div class="form-group blu-margin">
+            <select class="form-control"  th:field="*{team}" id="dropCoaches">
+                <option value="0">Wybierz druzyne</option>
+                <option th:each="operator : ${teams}" th:value= "${operator.id}" th:text="${operator.name}"}></option>
+            </select>
+        </div>
+        <div class="form-group blu-margin">
+        <input type="number"  th:field="*{takeOf}" class="form-control"  placeholder="Sila wybicia (MAX 20)">
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('takeOf')}" th:errors="*{takeOf}"></p>
+        </div>
+        <div class="form-group blu-margin">
+            <input type="number" th:field="*{technique}" class="form-control"  placeholder="Technika lotu (MAX 20)">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('technique')}" th:errors="*{technique}"></p>
+        </div>
+        <div class="form-group blu-margin">
+            <input type="number" th:field="*{landing}" th:onerror="" class="form-control"  placeholder="Technika ladowania (MAX 20)">
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('landing')}" th:errors="*{landing}"></p>
+        </div>
+        <button type="submit" class="btn btn-info btn-sm">Zapisz</button>
+    </form>
+</div>
 </body>
 </html>

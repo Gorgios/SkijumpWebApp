@@ -1,6 +1,8 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Entity
@@ -34,7 +36,7 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
+    @NotNull
     @Basic
     @Column(name = "username")
     public String getUsername() {
@@ -44,7 +46,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @NotNull
     @Basic
     @Column(name = "password")
     public String getPassword() {
@@ -54,7 +56,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @NotNull
     @Basic
     @Column(name = "email")
     public String getEmail() {

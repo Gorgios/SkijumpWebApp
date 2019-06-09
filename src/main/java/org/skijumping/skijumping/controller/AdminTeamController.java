@@ -7,8 +7,11 @@ import org.skijumping.skijumping.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +52,11 @@ public class AdminTeamController {
     }
 
     @PostMapping("/save")
-    public String saveTeam(@ModelAttribute("team") Team team){
+    public String saveTeam(@Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model theModel){
+        if (bindingResult.hasErrors()){
+            theModel.addAttribute("coaches",findCoaches());
+            return "admin/add-team";
+        }
        teamRepository.save(team);
         return "redirect:/admin/teams/";
    }

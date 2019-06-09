@@ -4,7 +4,7 @@
     <title> FIS-HomePage </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="/css/user.css" /> -->
+    <link rel="stylesheet" href="../css/fis.css" />
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -17,7 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/fis/competitions}"> Zawody </a>
             </li>
-
+            <li class="nav-item">
+                <a class = "nav-link" th:href="@{/fis/addCompetition}"> Rozegraj zawody</a>
+            </li>
         </ul>
     </div>
     <div class="mx-auto order-0">
@@ -28,12 +30,6 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -43,8 +39,10 @@
         </ul>
     </div>
 </nav>
-<table class="table table-hover table-dark">
-    <thead>
+
+<div class="tableContener" >
+    <table class="table table-hover table-borderless">
+        <thead>
     <tr >
         <th scope="col">Miejsce</th>
         <th scope="col">Skoczek</th>
@@ -56,10 +54,10 @@
     <tbody>
     <tr th:each="message,iter : ${starts}">
         <th th:text = "${iter.index + 1}" ></th>
-        <td th:text="${message.jumper}" ></td>
-        <td th:text="${message.first_jump}" ></td>
-        <td th:text="${message.second_jump}" ></td>
-        <td th:text="${message.points}" ></td>
+        <th th:text="${message.jumper}" ></th>
+        <th th:text="${message.first_jump}" ></th>
+        <th th:text="${message.second_jump}" ></th>
+        <th th:text="${message.points}" ></th>
 
 
     </tr>
@@ -68,7 +66,7 @@
     </tbody>
 
 </table>
-
+</div>
 <footer class="fixed-bottom">
     <div class="container text-center font-italic">
         <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>

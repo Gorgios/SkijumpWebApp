@@ -29,12 +29,6 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -45,7 +39,7 @@
     </div>
 </nav>
 <h1 >Twoje dane </h1>
-    <div id="tableContener" >
+    <div class="tableContener" >
     <table class="table table-hover table-active">
         <tr class ="table-primary" >
             <th scope="col">Imie</th>
@@ -86,11 +80,11 @@
     </table>
     </div>
 
-                    <div class="col-small">
+                    <div >
                         <form action="#" th:action="@{/jumper/updateJumper}" method="POST">
 
                             <input type="hidden" name="jumperId" th:value="${message.id}" />
-                            <button type="submit" class="btn btn-info btn-sm">Modyfikuj</button>
+                            <button id="trenuj" type="submit" class="btn btn-info btn-sm">Modyfikuj</button>
 
                         </form>
                     </div>

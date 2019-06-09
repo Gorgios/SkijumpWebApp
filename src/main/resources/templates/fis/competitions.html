@@ -4,7 +4,7 @@
     <title> FIS-HomePage </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="/css/user.css" /> -->
+    <link rel="stylesheet" href="../css/fis.css" />
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -31,12 +31,7 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
+
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -46,8 +41,8 @@
         </ul>
     </div>
 </nav>
-
-<table class="table table-hover table-dark">
+<div class="tableContener">
+<table class="table table-hover table-borderless">
     <thead>
     <tr >
         <th scope="col">Skocznia</th>
@@ -60,10 +55,10 @@
     <tr th:each="message : ${competitions}">
         <th th:text="${message.getHill().getName()}" ></th>
         <th th:text="${message.getHill().getCountry()}" ></th>
-        <td th:text="${message.dateof}"></td>
-        <td >
+        <th th:text="${message.dateof}"></th>
+        <th >
             <option th:each="operator : ${message.getTournees()}" th:value= "${operator.id}" th:text="${operator.name}"></option>
-        </td>
+        </th>
         <td>
             <div class="row">
                 <div class="col-small">
@@ -81,7 +76,7 @@
                         <input type="hidden" name="competitionId" th:value="${message.id}" />
                         <button type="submit" class="btn btn-danger btn-sm"
                                 onclick="if (!(confirm('Czy na pewno chcesz usunac zawody?'))) return false">
-                            Delete
+                            Usun zawody
                         </button>
 
                     </form>
@@ -94,6 +89,7 @@
     </tbody>
 
 </table>
+</div>
 <footer class="fixed-bottom">
     <div class="container text-center font-italic">
         <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>

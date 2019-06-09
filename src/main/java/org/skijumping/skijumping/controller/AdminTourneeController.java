@@ -6,9 +6,11 @@ import org.skijumping.skijumping.repository.TourneeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -43,9 +45,14 @@ public class AdminTourneeController {
     }
 
     @PostMapping("/save")
-    public String saveTournee(@ModelAttribute("tournee") Tournee tournee){
-        tourneeRepository.save(tournee);
-        return "redirect:/admin/tournees/";
+    public String saveTournee(@Valid @ModelAttribute("tournee") Tournee tournee, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "admin/add-tournee";
+        }
+        else {
+            tourneeRepository.save(tournee);
+            return "redirect:/admin/tournees/";
+        }
     }
     @PostMapping("/delete")
     public String delete(@RequestParam("tourneeId") int theId) {

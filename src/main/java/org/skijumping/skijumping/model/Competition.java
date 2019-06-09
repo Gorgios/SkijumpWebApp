@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +30,7 @@ public class Competition  {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="id_hill")
     public Hill getHill() {
@@ -39,7 +40,7 @@ public class Competition  {
     public void setHill(Hill hill) {
         this.hill = hill;
     }
-
+    @NotNull
     @Basic
     @Column(name = "dateof")
     public Date getDateof() {
@@ -49,6 +50,7 @@ public class Competition  {
     public void setDateof(Date dateof) {
         this.dateof = dateof;
     }
+    @NotNull
     @ManyToMany(cascade = { CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST })
     @JoinTable(
             name = "competition_tournee",

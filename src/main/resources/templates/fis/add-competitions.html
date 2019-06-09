@@ -4,7 +4,7 @@
     <title> FIS-HomePage </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="/css/user.css" /> -->
+    <link rel="stylesheet" href="../css/fis.css" />
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -17,7 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/fis/competitions}"> Zawody </a>
             </li>
-
+            <li class="nav-item">
+                <a class = "nav-link" th:href="@{/fis/addCompetition}"> Rozegraj zawody</a>
+            </li>
         </ul>
     </div>
     <div class="mx-auto order-0">
@@ -28,12 +30,6 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -46,7 +42,7 @@
 <div class="container">
 
 
-    <p class="h4 mb-4">Zapisz Zawody</p>
+ <h1>Rozegraj zawody</h1>
     <form action="#" th:action="save" th:object="${competition}" method="POST">
         <input type="hidden" th:field="*{id}" />
         <div class="form-group blu-margin">
@@ -63,7 +59,7 @@
                 <option th:each="t : ${tournees}" th:value="${t.id}" th:text="${t.name}"></option>
             </select>
         </div>
-        <button type="submit" class="btn btn-info btn-sm">Zapisz</button>
+        <button id="saveComp" type="submit" class="btn btn-info btn-sm">Zapisz</button>
     </form>
 </div>
 <footer class="fixed-bottom">

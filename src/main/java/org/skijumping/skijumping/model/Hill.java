@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class Hill {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @Basic
     @Column(name = "name")
     public String getName() {
@@ -37,7 +38,7 @@ public class Hill {
     public void setName(String name) {
         this.name = name;
     }
-
+    @NotNull
     @Basic
     @Column(name = "country")
     public String getCountry() {
@@ -47,7 +48,7 @@ public class Hill {
     public void setCountry(String country) {
         this.country = country;
     }
-
+    @NotNull
     @Basic
     @Column(name = "hill_size")
     public int getHillSize() {
@@ -57,7 +58,7 @@ public class Hill {
     public void setHillSize(int hillSize) {
         this.hillSize = hillSize;
     }
-
+    @NotNull
     @Basic
     @Column(name = "k_point")
     public int getkPoint() {

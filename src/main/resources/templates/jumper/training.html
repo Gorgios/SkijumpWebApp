@@ -31,12 +31,6 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -70,7 +64,8 @@
         <form action="#" th:action="@{/jumper/doTrain}" method="POST">
 
             <input type="hidden" name="jumperId" th:value="${jumper.id}" />
-            <button type="submit" class="btn btn-info btn-sm">Trenuj</button>
+            <p th:text="'Ilość żetonów = ' + ${jumper.credits} +'. Jeden trenning = 5 żetonów'" ></p>
+            <button id="trenuj" type="submit" class="btn btn-info btn-sm">Trenuj</button>
 
         </form>
     </div>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-
+    <title> Drużyny </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Druzyny</title>
-
+    <link rel="stylesheet" href="../css/admin.css" />
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -45,12 +45,6 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/news}" th:text="${'Aktualności'}" />
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/settings}" th:text="${'Ustawienia'}" />
-            </li>
             <li th:if="${user}" class="nav-item">
                 <a class="nav-link" th:href="@{#}" th:text="${'Zalogowany jako:' + ' ' + user.username + ' (' + user.email + ')'}" />
             </li>
@@ -75,8 +69,8 @@
     <tbody>
     <tr th:each="message : ${messages}">
         <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.name}"></td>
-        <td th:text="${message.coach}"></td>
+        <th th:text="${message.name}"></th>
+        <th th:text="${message.coach}"></th>
 
         <td>
             <div class="row">
@@ -95,7 +89,7 @@
                         <input type="hidden" name="teamId" th:value="${message.id}" />
                         <button type="submit" class="btn btn-danger btn-sm"
                                 onclick="if (!(confirm('Czy na pewno chcesz usunac druzyne?'))) return false">
-                            Delete
+                            Usuń
                         </button>
 
                     </form>

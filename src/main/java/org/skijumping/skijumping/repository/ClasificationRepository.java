@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
-public interface ClasificationRepository extends JpaRepository<Clasification,Jumper>  {
+public interface ClasificationRepository extends JpaRepository<Clasification,Integer>  {
     Clasification findByJumperAndTournee (Jumper jumper, Tournee tournee);
     List<Clasification> findAllByTournee (Tournee tournee);
 }

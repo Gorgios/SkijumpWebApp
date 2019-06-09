@@ -1,6 +1,7 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Team {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @Column(name = "name")
     public String getName() {
         return name;

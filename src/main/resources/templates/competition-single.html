@@ -1,44 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang = "pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-
+    <title> FIS-HomePage </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin.css" />
-    <title>Zawody</title>
-
+    <link rel="stylesheet" href="../css/fis.css" />
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body> <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/admin/}"> Strona główna </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/coaches/}"> Trenerzy </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/teams/}"> Druzyny </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/jumpers/}"> Skoczkowie </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/hills/}"> Skocznie </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/competitions/}"> Zawody </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/tournees/}"> Turnieje </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/admin/users/}"> Uzytkownicy </a>
+                <a class="nav-link" th:href="@{/}"> Strona główna </a>
             </li>
         </ul>
     </div>
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" th:href="@{#}"> SKOKI - ADMIN </a>
+        <a class="navbar-brand mx-auto" > STRONA ZARZADCY </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -54,8 +33,10 @@
         </ul>
     </div>
 </nav>
-<table class="table table-hover table-dark">
-    <thead>
+
+<div class="tableContener" >
+    <table class="table table-hover table-borderless">
+        <thead>
     <tr >
         <th scope="col">Miejsce</th>
         <th scope="col">Skoczek</th>
@@ -67,10 +48,10 @@
     <tbody>
     <tr th:each="message,iter : ${starts}">
         <th th:text = "${iter.index + 1}" ></th>
-        <td th:text="${message.jumper}" ></td>
-        <td th:text="${message.first_jump}" ></td>
-        <td th:text="${message.second_jump}" ></td>
-        <td th:text="${message.points}" ></td>
+        <th th:text="${message.jumper}" ></th>
+        <th th:text="${message.first_jump}" ></th>
+        <th th:text="${message.second_jump}" ></th>
+        <th th:text="${message.points}" ></th>
 
 
     </tr>
@@ -79,5 +60,11 @@
     </tbody>
 
 </table>
+</div>
+<footer class="fixed-bottom">
+    <div class="container text-center font-italic">
+        <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>
+    </div>
+</footer>
 </body>
 </html>

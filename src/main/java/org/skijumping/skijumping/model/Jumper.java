@@ -1,7 +1,9 @@
 package org.skijumping.skijumping.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Jumper {
     private List<Start> starts;
     private int takeOf=0;
     private int landing=0;
+
     private int technique=0;
     private int credits=0;
     @Id
@@ -31,7 +34,7 @@ public class Jumper {
     public void setId(int id) {
         this.id = id;
     }
-
+    @NotNull
     @Basic
     @Column(name = "first_name")
     public String getFirstName() {
@@ -41,7 +44,7 @@ public class Jumper {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @NotNull
     @Basic
     @Column(name = "last_name")
     public String getLastName() {
@@ -51,7 +54,7 @@ public class Jumper {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, cascade={CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="id_team")
     public Team getTeam() {
@@ -96,6 +99,8 @@ public class Jumper {
         return starts;
     }
     @Column(name = "take_of")
+    @Min(value = 0, message = "Musi byc większe lub równe zero")
+    @Max(value = 20 , message = "Nie może być większe od 20")
     public int getTakeOf() {
         return takeOf;
     }
@@ -105,6 +110,8 @@ public class Jumper {
     }
     @Basic
     @Column(name = "landing")
+    @Min(value = 0, message = "Musi byc większe lub równe zero")
+    @Max(value = 20 , message = "Nie może być większe od 20")
     public int getLanding() {
         return landing;
     }
@@ -114,6 +121,8 @@ public class Jumper {
     }
     @Basic
     @Column(name = "technique")
+    @Min(value = 0, message = "Musi byc większe lub równe zero")
+    @Max(value = 20 , message = "Nie może być większe od 20")
     public int getTechnique() {
         return technique;
     }
@@ -140,9 +149,21 @@ public class Jumper {
             Random generator = new Random();
             int luck = generator.nextInt(5);
             switch (luck){
-                case 0: takeOf++; break;
-                case 2: landing ++; break;
-                case 3: technique++; break;
+                case 0: {
+                    if (takeOf<20)
+                        takeOf++;
+                    break;
+                }
+                case 2:{
+                    if (landing<20)
+                        landing ++;
+                    break;
+                }
+                case 3: {
+                   if (technique <20)
+                        technique++;
+                    break;
+                }
                 default: break;
             }
             credits -= 5;
