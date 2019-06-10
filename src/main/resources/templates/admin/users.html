@@ -1,14 +1,19 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css"  href="/css/admin.css" />
     <title>Uzytkownicy</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script >
+        $(function () {
+            $('#myModal').modal('show');
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -58,7 +63,7 @@
     </div>
 </nav>
 <a th:href="@{/admin/users/addUser}"
-   class="btn btn-primary btn-sm mb-3">
+   class="btn btn-info btn-sm dodaj">
     Dodaj uzytkownika
 </a>
 <table class="table table-hover table-dark">
@@ -71,50 +76,44 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="message : ${messages}">
-        <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.username}"></td>
-        <td th:text="${message.email}"></td>
-        <td th:text="${message.role}"></td>
+    <tr th:each="user : ${messages}">
+        <th scope="row" th:text="${user.id}" ></th>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
 
         <td>
             <div class="row">
                 <div class="col-small">
-                    <form action="#" th:action="@{/admin/users/updateUser}" method="POST">
 
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
-                            Zmien role
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Modal Header</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Some text in the modal.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button"  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"  th:attrappend="data-target=${user.id}">Zmien role</button>
+                            <form action="#" th:action="@{/admin/users/updateRole}" method="POST">
+                                <div  class="modal fade bd-example-modal-lg " id="myModal"  role="dialog" th:attrappend="id=${user.id}">
+                                    <div class="modal-dialog modal-lg central"  >
+                                        <div class="modal-content">
+                                            <input type="hidden" name="id" th:value="${user.id}" />
+                                            <input type="hidden" name="username" th:value="${user.username}" />
+                                            <input type="hidden" name="password" th:value="${user.password}" />
+                                            <input type="hidden" name="email" th:value="${user.email}" />
+                                            <input type="hidden" name="enabled" th:value="${user.enabled}" />
+                                            <select class="form-control" name="role" th:value="${user.role}" id="dropRoles">
+                                                <option value="0">Wybierz role</option>
+                                                <option th:each="operator : ${roles}" th:value= "${operator.id}" th:text="${operator.role}"></option>
+                                            </select>
+                                            <button type="submit" class="btn btn-info btn-sm">Zapisz</button>
+                                        </div>
                                     </div>
                                 </div>
+                            </form>
 
-                            </div>
-                        </div>
-                    </form>
 
                 </div>
                 <div class="col-small">
-                    <!-- Add "delete" button/link -->
                     <form action="#" th:action="@{/admin/users/delete}" method="POST">
 
-                        <input type="hidden" name="userId" th:value="${message.id}" />
+                        <input type="hidden" name="userId" th:value="${user.id}" />
                         <button type="submit" class="btn btn-danger btn-sm"
-                                onclick="if (!(confirm('Czy na pewno chcesz usunac trenera?'))) return false">
+                                onclick="if (!(confirm('Czy na pewno chcesz usunac użytkownika?'))) return false">
                             Delete
                         </button>
 
@@ -126,6 +125,10 @@
     </tbody>
 
 </table>
-
+<footer class="fixed-bottom">
+    <div class="container text-center font-italic">
+        <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>
+    </div>
+</footer>
 </body>
 </html>

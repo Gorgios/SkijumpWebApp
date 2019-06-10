@@ -9,6 +9,14 @@ p{
 body {
     background-image: url("../images/tlo2.jpg");
 }
+#myModal{
+    text-align: center;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 20px;
+    height: 40px;
+}
 #trenuj{
     text-align: center;
     width: 20%;
@@ -17,7 +25,6 @@ body {
     margin-top: 20px;
     height: 40px;
 }
-
 
 
 .progress{

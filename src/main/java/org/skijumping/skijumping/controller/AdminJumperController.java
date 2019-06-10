@@ -3,10 +3,8 @@ package org.skijumping.skijumping.controller;
 import org.skijumping.skijumping.model.Clasification;
 import org.skijumping.skijumping.model.Jumper;
 import org.skijumping.skijumping.model.Tournee;
-import org.skijumping.skijumping.repository.ClasificationRepository;
-import org.skijumping.skijumping.repository.JumperRepository;
-import org.skijumping.skijumping.repository.TeamRepository;
-import org.skijumping.skijumping.repository.TourneeRepository;
+import org.skijumping.skijumping.model.User;
+import org.skijumping.skijumping.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import javax.xml.ws.Action;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -26,10 +25,12 @@ public class AdminJumperController {
     private TeamRepository teamRepository;
     private ClasificationRepository clasificationRepository;
     private TourneeRepository tourneeRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public AdminJumperController(JumperRepository jumperRepository, TeamRepository teamRepository, ClasificationRepository clasificationRepository,
-                                 TourneeRepository tourneeRepository) {
+                                 TourneeRepository tourneeRepository, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.jumperRepository = jumperRepository;
         this.teamRepository = teamRepository;
         this.tourneeRepository = tourneeRepository;
@@ -37,12 +38,16 @@ public class AdminJumperController {
     }
 
     @GetMapping("/")
-    public String listCoaches(Model theModel){
+    public String listCoaches(Model theModel, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
        theModel.addAttribute("messages",jumperRepository.findAll());
        return "admin/jumpers";
    }
     @GetMapping("/addJumper")
-    public String addJumper(Model theModel) {
+    public String addJumper(Model theModel, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
 
         Jumper jumper = new Jumper();
         theModel.addAttribute("teams",teamRepository.findAll());

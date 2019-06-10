@@ -5,11 +5,14 @@ import org.skijumping.skijumping.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +36,9 @@ public class JumperController {
         this.tourneeRepository = tourneeRepository;
         this.competitionRepository = competitionRepository;
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String jumperHomePage(Model theModel, Principal principal){
@@ -94,11 +100,23 @@ public class JumperController {
     public String showData(Model theModel, Principal principal){
         User user = userRepository.findByUsername(principal.getName());
         Jumper jumper = jumperRepository.findByUser(user);
+        user.setPassword("");
         theModel.addAttribute("user",user);
         theModel.addAttribute("message",jumper);
         return "jumper/jumper-data";
     }
+    @PostMapping("/updateJumper")
+    public String updateUser(@Valid @ModelAttribute("user") User user,  BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
 
+            return "jumper/jumper-data";
+        }
+        else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return "redirect:/logout";
+        }
+    }
         @PostMapping("/doTrain")
     public String doTrain(@RequestParam("jumperId") int theId){
         Jumper jumper = jumperRepository.findById(theId).orElse(null);

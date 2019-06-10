@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,27 +24,34 @@ public class AdminCompetitionController {
     private TourneeRepository tourneeRepository;
     private StartRepository startRepository;
     private JumperRepository jumperRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public AdminCompetitionController(CompetitionRepository competitionRepository,
                                       StartRepository startRepository, HillRepository hillRepository,
                                       TourneeRepository tourneeRepository, JumperRepository jumperRepository,
-                                      ClasificationRepository clasificationRepository) {
+                                      ClasificationRepository clasificationRepository, UserRepository userRepository) {
         this.competitionRepository = competitionRepository;
         this.hillRepository = hillRepository;
         this.tourneeRepository = tourneeRepository;
         this.startRepository = startRepository;
         this.jumperRepository = jumperRepository;
         this.clasificationRepository = clasificationRepository;
+        this.userRepository = userRepository;
+
     }
 
     @GetMapping("/")
-    public String listCompetitions(Model theModel){
+    public String listCompetitions(Model theModel , Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
        theModel.addAttribute("competitions" , competitionRepository.findAll());
        return "admin/competition";
    }
     @GetMapping("/addCompetition")
-    public String addCompetition(Model theModel) {
+    public String addCompetition(Model theModel, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
         Competition competition = new Competition();
 
         theModel.addAttribute("tournees", tourneeRepository.findAll());

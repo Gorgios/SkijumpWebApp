@@ -1,22 +1,20 @@
 package org.skijumping.skijumping.controller;
 
-import org.skijumping.skijumping.model.Clasification;
-import org.skijumping.skijumping.model.Competition;
-import org.skijumping.skijumping.model.Start;
-import org.skijumping.skijumping.model.User;
+import org.skijumping.skijumping.model.*;
 import org.skijumping.skijumping.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
@@ -34,12 +32,13 @@ public class HomeController {
     private UserRepository userRepository;
     private CoachRepository coachRepository;
     private TeamRepository teamRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public HomeController(ClasificationRepository clasificationRepository, CompetitionRepository competitionRepository,
                           HillRepository hillRepository, TourneeRepository tourneeRepository,
                           StartRepository startRepository, JumperRepository jumperRepository, UserRepository userRepository,
-                          CoachRepository coachRepository, TeamRepository teamRepository) {
+                          CoachRepository coachRepository, TeamRepository teamRepository, RoleRepository roleRepository) {
         this.clasificationRepository = clasificationRepository;
         this.competitionRepository = competitionRepository;
         this.hillRepository = hillRepository;
@@ -49,8 +48,10 @@ public class HomeController {
         this.userRepository = userRepository;
         this.coachRepository = coachRepository;
         this.teamRepository = teamRepository;
+        this.roleRepository = roleRepository;
     }
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping("/")
     public String startPage(Model theModel){
@@ -78,7 +79,13 @@ public class HomeController {
         return "/index";
     }
     @RequestMapping("/login")
-    public String login() {
+    public String login(Model theModel) {
+
+        User user = new User();
+        Jumper jumper = new Jumper();
+        theModel.addAttribute("user",user);
+        theModel.addAttribute("jumper",jumper);
+        theModel.addAttribute("teams", teamRepository.findAll());
         return "login";
     }
     @GetMapping("/403")
@@ -112,5 +119,30 @@ public class HomeController {
         Collections.sort(starts,Collections.reverseOrder());
         theModel.addAttribute("starts",starts);
         return "competition-single";
+    }
+    @PostMapping("/save")
+    public String saveTeam(@Valid @ModelAttribute("user") User user, @ModelAttribute("jumper") Jumper jumper, BindingResult bindingResult, Model theModel){
+        if (bindingResult.hasErrors()){
+            theModel.addAttribute("teams", teamRepository.findAll());
+            return "admin/registration";
+        }
+        else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setEnabled((byte) 1);
+            Role role = roleRepository.findById(1).orElse(null);
+            user.setRole(role);
+            jumper.setUser(user);
+            jumper.setCredits(100);
+            userRepository.save(user);
+
+            for (Tournee t : tourneeRepository.findAll()) {
+                Clasification clasification = new Clasification();
+                clasification.setJumper(jumper);
+                clasification.setTournee(t);
+                clasification.setPoints(0);
+                clasificationRepository.save(clasification);
+            }
+            return "redirect:/login";
+        }
     }
 }

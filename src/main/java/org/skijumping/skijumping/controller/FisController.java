@@ -102,9 +102,8 @@ public class FisController {
         Competition comp = competitionRepository.findById(idComp).orElse(null);
         List<Start> starts = startRepository.findAllByCompetition(comp);
         Collections.sort(starts,Collections.reverseOrder());
-        starts.get(0).getJumper().setCredits(starts.get(0).getJumper().getCredits()+5);
-        starts.get(1).getJumper().setCredits(starts.get(1).getJumper().getCredits()+3);
-        starts.get(2).getJumper().setCredits(starts.get(2).getJumper().getCredits()+1);
+        for (Start s: starts)
+            s.getJumper().setCredits(s.getJumper().getCredits()+2);
         Clasification clas;
         for (Tournee t: comp.getTournees()) {
             for (int i = 0; i < starts.size(); i++) {

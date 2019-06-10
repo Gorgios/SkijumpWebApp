@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css"  href="/css/admin.css" />
     <title>Turnieje</title>
 </head>
 <body>
@@ -55,8 +55,8 @@
     </div>
 </nav>
 <a th:href="@{/admin/tournees/addTournee}"
-   class="btn btn-info btn-sm">
-    Dodaj skocznie
+   class="btn btn-info btn-sm dodaj">
+    Dodaj turniej
 </a>
 <table class="table table-hover table-dark">
     <thead>
@@ -76,6 +76,14 @@
 
         <td>
             <div class="row">
+                <div class="col-small">
+                    <form action="#" th:action="@{/admin/clasification/}" method="GET">
+
+                        <input type="hidden" name="classificationId" th:value="${message.id}" />
+                        <button type="submit" class="btn btn-success btn-sm">Pokaż klasyfikacje</button>
+
+                    </form>
+                </div>
                 <div class="col-small">
                     <form action="#" th:action="@{/admin/tournees/updateTournee}" method="POST">
 
@@ -102,5 +110,10 @@
     </tbody>
 
 </table>
+<footer class="fixed-bottom">
+    <div class="container text-center font-italic">
+        <p class="h3"> © 2019 Copyright: <a class="text-warning font-weight-bold" th:href="@{https://github.com/Gorgios}"> GORGIOS </a></p>
+    </div>
+</footer>
 </body>
 </html>

@@ -1,4 +1,52 @@
-
 body {
-    background-image: url("../images/tlo.jpg");
+    background-image: url("../images/admin.jpg");
+}
+.table{
+    width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.dodaj {
+    margin-left: 30%;
+    width: 40%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.central {
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    width: 40%;
+    transform: translate(-50%, -50%);
+}
+p{
+    margin: 10px;
+    border: #707070 2px;
+    color: gainsboro;
+    font-weight: bold;
+    text-align: center;
+}
+.form-control{
+    background: #707070;
+    color: darkblue;
+}
+form .form-control::-webkit-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+
+form .form-control::-moz-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:-ms-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+.col-small .btn{
+    margin-right: 15px;
 }

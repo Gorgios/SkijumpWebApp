@@ -2,7 +2,9 @@ package org.skijumping.skijumping.controller;
 
 import org.skijumping.skijumping.model.Team;
 import org.skijumping.skijumping.model.Tournee;
+import org.skijumping.skijumping.model.User;
 import org.skijumping.skijumping.repository.TourneeRepository;
+import org.skijumping.skijumping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -18,18 +21,24 @@ import java.util.Optional;
 public class AdminTourneeController {
 
     private TourneeRepository tourneeRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdminTourneeController(TourneeRepository tourneeRepository) {
+    public AdminTourneeController(TourneeRepository tourneeRepository, UserRepository userRepository) {
         this.tourneeRepository = tourneeRepository;
+        this.userRepository = userRepository;
     }
     @GetMapping("/")
-    public String listTourneess(Model theModel){
+    public String listTourneess(Model theModel, Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
         theModel.addAttribute("tournees",tourneeRepository.findAll());
         return "admin/tournees";
     }
     @GetMapping("/addTournee")
-    public String addTournee(Model theModel) {
+    public String addTournee(Model theModel, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
 
        Tournee tournee = new Tournee();
        theModel.addAttribute("tournee",tournee);

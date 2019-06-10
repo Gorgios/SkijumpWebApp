@@ -37,50 +37,42 @@ public class AdminUserController {
     @GetMapping("/")
     public String listUsers(Model theModel){
        theModel.addAttribute("messages",userRepository.findAll());
+       theModel.addAttribute("roles", roleRepository.findAll());
        return "admin/users";
    }
     @GetMapping("/addUser")
     public String addUser(Model theModel){
         User user = new User();
-        Jumper jumper = new Jumper();
+        theModel.addAttribute("roles",roleRepository.findAll());
         theModel.addAttribute("user",user);
-        theModel.addAttribute("jumper",jumper);
-        theModel.addAttribute("teams", teamRepository.findAll());
         return "admin/registration";
     }
     @PostMapping("/save")
-    public String saveTeam(@Valid  @ModelAttribute("user") User user, @ModelAttribute("jumper") Jumper jumper, BindingResult bindingResult, Model theModel){
+    public String saveTeam(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model theModel){
         if (bindingResult.hasErrors()){
-            theModel.addAttribute("teams", teamRepository.findAll());
+            theModel.addAttribute("roles",roleRepository);
             return "admin/registration";
         }
         else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled((byte) 1);
-            Role role = new Role();
-            role.setRole("JUMPER");
-            user.setRole(role);
-            jumper.setUser(user);
-            jumper.setCredits(100);
             userRepository.save(user);
 
-            for (Tournee t : tourneeRepository.findAll()) {
-                Clasification clasification = new Clasification();
-                clasification.setJumper(jumper);
-                clasification.setTournee(t);
-                clasification.setPoints(0);
-                clasificationRepository.save(clasification);
-            }
-            return "redirect:/admin/users/";
+            return "redirect:";
         }
     }
-    @PostMapping("/updateUser")
-    public String updateUser(@RequestParam("userId") int theId,
-                             Model theModel){
-        Optional<User> user = userRepository.findById(theId);
-        theModel.addAttribute("roles", roleRepository.findAll());
-        theModel.addAttribute("user",user);
-        return "admin/users";
+    @PostMapping("/updateRole")
+    public String updateUser(@Valid  @ModelAttribute("user") User user, BindingResult bindingResult, Model theModel){
+        if (bindingResult.hasErrors()){
+            theModel.addAttribute("roles", roleRepository.findAll());
+            theModel.addAttribute("users",userRepository.findAll());
+            return "admin/users";
+        }
+        else {
+         //   System.out.println(user.getId() + "\n\n\n\n\n\n\n\n");
+            userRepository.save(user);
+            return "redirect:/admin/users/";
+        }
     }
     @PostMapping("/delete")
     public String delete(@RequestParam("userId") int theId) {

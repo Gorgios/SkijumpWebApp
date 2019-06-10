@@ -2,8 +2,10 @@ package org.skijumping.skijumping.controller;
 
 import org.skijumping.skijumping.model.Coach;
 import org.skijumping.skijumping.model.Team;
+import org.skijumping.skijumping.model.User;
 import org.skijumping.skijumping.repository.CoachRepository;
 import org.skijumping.skijumping.repository.TeamRepository;
+import org.skijumping.skijumping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.BindException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,19 +26,24 @@ public class AdminTeamController {
     @Autowired
     private TeamRepository teamRepository;
     private CoachRepository coachRepository;
-    public AdminTeamController(TeamRepository theTeamRepository, CoachRepository theCoachRepository){
+    private UserRepository userRepository;
+    public AdminTeamController(TeamRepository theTeamRepository, UserRepository userRepository, CoachRepository theCoachRepository){
         teamRepository=theTeamRepository;
         coachRepository=theCoachRepository;
+        this.userRepository = userRepository;
     }
 
    @GetMapping("/")
-    public String listTeams(Model theModel){
+    public String listTeams(Model theModel, Principal principal){
+       User user = userRepository.findByUsername(principal.getName());
+       theModel.addAttribute("user",user);
        theModel.addAttribute("messages",teamRepository.findAll());
        return "admin/teams";
    }
     @GetMapping("/addTeam")
-    public String addTeam(Model theModel) {
-
+    public String addTeam(Model theModel, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        theModel.addAttribute("user",user);
        Team team = new Team();
        theModel.addAttribute("team",team);
        theModel.addAttribute("coaches",findCoaches());
