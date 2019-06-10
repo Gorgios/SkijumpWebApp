@@ -35,14 +35,14 @@ public class AdminTeamController {
 
    @GetMapping("/")
     public String listTeams(Model theModel, Principal principal){
-       User user = userRepository.findByUsername(principal.getName());
+       User user = userRepository.findByUsername(principal.getName()).orElse(null);
        theModel.addAttribute("user",user);
        theModel.addAttribute("messages",teamRepository.findAll());
        return "admin/teams";
    }
     @GetMapping("/addTeam")
     public String addTeam(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
        Team team = new Team();
        theModel.addAttribute("team",team);

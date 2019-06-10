@@ -40,7 +40,7 @@ public class FisController {
 
     @GetMapping("/")
     public String jumperHomePage(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         theModel.addAttribute("competitions",competitionRepository.findAll());
         List<Clasification> clas = clasificationRepository
@@ -67,7 +67,7 @@ public class FisController {
     }
     @GetMapping("/competitions")
     public String competition(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         theModel.addAttribute("competitions",competitionRepository.findAll());
         return "fis/competitions";
@@ -75,7 +75,7 @@ public class FisController {
     @GetMapping("/addCompetition")
     public String addCompetition(Model theModel, Principal principal) {
         Competition competition = new Competition();
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         theModel.addAttribute("tournees", tourneeRepository.findAll());
         theModel.addAttribute("hills",hillRepository.findAll());
@@ -85,7 +85,7 @@ public class FisController {
     @RequestMapping("/showCompetition")
     public String showCompetition(@RequestParam("competitionId") int theId,
                                   Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         Competition competition = competitionRepository.findById(theId).orElse(null);
 
@@ -125,7 +125,6 @@ public class FisController {
         Start start;
         for (Jumper jumper : jumperRepository.findAll() ){
             start = jumper.makeStart(competition);
-            System.out.println(start);
             startRepository.save(start);
         }
 

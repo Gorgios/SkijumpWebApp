@@ -31,7 +31,7 @@ public class AdminClassificationController {
 
     @GetMapping("/")
     public String clasificationList (@RequestParam("classificationId") int theId,Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         List<Clasification> clas = clasificationRepository
                 .findAllByTournee(tourneeRepository.findById(theId).orElse(null));

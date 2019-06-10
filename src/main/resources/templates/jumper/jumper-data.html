@@ -3,14 +3,15 @@
 <head>
     <title> Skoczek </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet"  href="../css/jumper.css" />
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet"  href="../css/jumper.css" />
     <script src="/js/main.js"></script>
 </head>
-\<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -44,41 +45,41 @@
 <h1 >Twoje dane </h1>
     <div class="tableContener" >
     <table class="table table-hover table-active">
-        <tr class ="table-primary" >
+        <tr  >
             <th scope="col">Imie</th>
-            <td th:text="${message.firstName}"></td>
+            <th th:text="${message.firstName}"></th>
         </tr>
-        <tr class = "table-primary">
+        <tr >
             <th scope="col">Nazwisko</th>
-            <td th:text="${message.lastName}"></td>
+            <th th:text="${message.lastName}"></th>
         </tr>
-        <tr class = "table-primary">
+        <tr >
             <th scope="col">Data urodzenia</th>
             <th scope="row" th:text="${message.birthDate}" ></th>
         </tr>
-        <tr class="table-secondary">
+        <tr >
             <th scope="col">Druzyna</th>
-            <td th:text="${message.getTeam().name}"></td>
+            <th th:text="${message.getTeam().name}"></th>
         </tr>
-        <tr class="table-success">
+        <tr >
             <th scope="col">Sila wybicia</th>
-            <td th:text="${message.takeOf}"></td>
+            <th th:text="${message.takeOf}"></th>
         </tr>
-        <tr class="table-success">
+        <tr>
             <th scope="col">Technika lotu</th>
-            <td th:text="${message.technique}"></td>
+            <th th:text="${message.technique}"></th>
         </tr>
-        <tr class="table-success">
+        <tr>
             <th scope="col">Technika ladowania</th>
-            <td th:text="${message.landing}"></td>
+            <th th:text="${message.landing}"></th>
         </tr>
-        <tr class="table-warning">
+        <tr >
             <th scope="col">Nazwa uzytkownika</th>
-            <td th:text="${user.username}"></td>
+            <th th:text="${user.username}"></th>
         </tr>
-        <tr class="table-warning">
+        <tr >
             <th scope="col">Email</th>
-            <td th:text="${user.email}"></td>
+            <th th:text="${user.email}"></th>
         </tr>
     </table>
     </div>

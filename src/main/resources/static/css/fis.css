@@ -11,7 +11,7 @@ table {
     border: 2px white;
 }
 body{
-    background-image: url("../images/tlo.jpg");
+    background-image: url("../images/admin.jpg");
 }
 th {
     color: ivory;
@@ -44,4 +44,25 @@ h1{
     text-align: center;
     width: 60%;
     margin-left:20%;
+}
+.form-control{
+    background: #707070;
+    color: darkblue;
+}
+form .form-control::-webkit-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+
+form .form-control::-moz-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:-ms-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:placeholder {
+    color: darkblue;
+    opacity: 1;
 }

@@ -27,7 +27,7 @@ public class AdminController {
     @RequestMapping("/")
     public String homePage(Model theModel, Principal principal, Authentication auth) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         return "admin/index";
     }

@@ -42,7 +42,7 @@ public class JumperController {
 
     @GetMapping("/")
     public String jumperHomePage(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Jumper jumper = jumperRepository.findByUser(user);
         theModel.addAttribute("user",user);
         theModel.addAttribute("jumper",jumper);
@@ -71,7 +71,7 @@ public class JumperController {
     }
     @GetMapping("/myData")
     public String myData (Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Jumper jumper = jumperRepository.findByUser(user);
         theModel.addAttribute("user",user);
         theModel.addAttribute("jumper",jumper);
@@ -80,7 +80,7 @@ public class JumperController {
     @RequestMapping("/showCompetition")
     public String showCompetition(@RequestParam("competitionId") int theId,
                                   Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         Competition competition = competitionRepository.findById(theId).orElse(null);
 
@@ -91,14 +91,14 @@ public class JumperController {
     }
     @GetMapping("/training")
     public String makeTraining(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Jumper jumper = jumperRepository.findByUser(user);
         theModel.addAttribute("user",user);
         theModel.addAttribute("jumper",jumper);
         return "jumper/training";}
     @GetMapping("/showData")
     public String showData(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         Jumper jumper = jumperRepository.findByUser(user);
         user.setPassword("");
         theModel.addAttribute("user",user);

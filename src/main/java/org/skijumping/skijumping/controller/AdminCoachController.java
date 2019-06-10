@@ -29,14 +29,14 @@ public class AdminCoachController {
 
    @GetMapping("/")
     public String listCoaches(Model theModel, Principal principal){
-       User user = userRepository.findByUsername(principal.getName());
+       User user = userRepository.findByUsername(principal.getName()).orElse(null);
        theModel.addAttribute("user",user);
        theModel.addAttribute("messages",coachRepository.findAll());
        return "admin/coaches";
    }
     @GetMapping("/addCoach")
     public String addCoach(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         Coach coach = new Coach();
         theModel.addAttribute("coach",coach);

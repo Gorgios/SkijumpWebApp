@@ -1,8 +1,11 @@
 package org.skijumping.skijumping.model;
 
+import org.skijumping.skijumping.controller.UniqueLogin;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +42,7 @@ public class User {
     @NotNull
     @Basic
     @Column(name = "username")
+    @UniqueLogin
     public String getUsername() {
         return username;
     }
@@ -48,6 +52,7 @@ public class User {
     }
     @NotNull
     @Basic
+    @Size(min=8, message = "Hasło jest za krótkie")
     @Column(name = "password")
     public String getPassword() {
         return password;

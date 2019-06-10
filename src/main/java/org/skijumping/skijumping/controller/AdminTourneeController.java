@@ -30,14 +30,14 @@ public class AdminTourneeController {
     }
     @GetMapping("/")
     public String listTourneess(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         theModel.addAttribute("tournees",tourneeRepository.findAll());
         return "admin/tournees";
     }
     @GetMapping("/addTournee")
     public String addTournee(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
 
        Tournee tournee = new Tournee();

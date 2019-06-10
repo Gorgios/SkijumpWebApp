@@ -1,13 +1,13 @@
 
 p{
-    color: navy;
+    color: beige;
     font-weight: bold;
     margin-top: 20px;
     text-align: center;
     font-size:150%;
 }
 body {
-    background-image: url("../images/tlo2.jpg");
+    background-image: url("../images/admin.jpg");
 }
 #myModal{
     text-align: center;
@@ -71,4 +71,25 @@ h1{
     text-align: center;
     width: 60%;
     margin-left:20%;
+}
+.form-control{
+    background: #707070;
+    color: darkblue;
+}
+form .form-control::-webkit-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+
+form .form-control::-moz-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:-ms-input-placeholder {
+    color: darkblue;
+    opacity: 1;
+}
+form .form-control:placeholder {
+    color: darkblue;
+    opacity: 1;
 }

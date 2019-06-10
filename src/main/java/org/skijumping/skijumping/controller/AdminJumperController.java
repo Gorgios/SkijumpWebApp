@@ -39,14 +39,14 @@ public class AdminJumperController {
 
     @GetMapping("/")
     public String listCoaches(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
        theModel.addAttribute("messages",jumperRepository.findAll());
        return "admin/jumpers";
    }
     @GetMapping("/addJumper")
     public String addJumper(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
 
         Jumper jumper = new Jumper();

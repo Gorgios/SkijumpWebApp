@@ -121,10 +121,10 @@ public class HomeController {
         return "competition-single";
     }
     @PostMapping("/save")
-    public String saveTeam(@Valid @ModelAttribute("user") User user, @ModelAttribute("jumper") Jumper jumper, BindingResult bindingResult, Model theModel){
+    public String saveTeam(@Valid @ModelAttribute("user") User user,BindingResult bindingResult, @ModelAttribute("jumper") Jumper jumper, Model theModel){
         if (bindingResult.hasErrors()){
             theModel.addAttribute("teams", teamRepository.findAll());
-            return "admin/registration";
+            return "login";
         }
         else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -35,7 +35,7 @@ public class AdminHillController {
 
     @GetMapping("/")
     public String listHills(Model theModel, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
        theModel.addAttribute("messages",hillRepository.findAll());
        return "admin/hills";
@@ -43,7 +43,7 @@ public class AdminHillController {
     @GetMapping("/addHill")
     public String addHill(Model theModel, Principal principal) {
 
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
      Hill hill = new Hill();
      theModel.addAttribute("hill", hill);

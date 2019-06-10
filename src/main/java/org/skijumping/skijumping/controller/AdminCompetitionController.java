@@ -43,14 +43,14 @@ public class AdminCompetitionController {
 
     @GetMapping("/")
     public String listCompetitions(Model theModel , Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
        theModel.addAttribute("competitions" , competitionRepository.findAll());
        return "admin/competition";
    }
     @GetMapping("/addCompetition")
     public String addCompetition(Model theModel, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName()).orElse(null);
         theModel.addAttribute("user",user);
         Competition competition = new Competition();
 
