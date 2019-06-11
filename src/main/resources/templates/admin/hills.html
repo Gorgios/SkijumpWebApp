@@ -70,12 +70,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="message : ${messages}">
-        <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.name}"></td>
-        <td th:text="${message.country}"></td>
-        <td th:text="${message.kPoint}"></td>
-        <td th:text="${message.hillSize}"></td>
+    <tr th:each="message, iter : ${messages}">
+        <th th:text = "${iter.index + 1}" ></th>
+        <th th:text="${message.name}"></th>
+        <th th:text="${message.country}"></th>
+        <th th:text="${message.kPoint}"></th>
+        <th th:text="${message.hillSize}"></th>
 
         <td>
             <div class="row">

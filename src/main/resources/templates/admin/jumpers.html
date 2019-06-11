@@ -73,15 +73,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="message : ${messages}">
-        <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.firstName}"></td>
-        <td th:text="${message.lastName}"></td>
+    <tr th:each="message,iter : ${messages}">
+        <th th:text = "${iter.index + 1}" ></th>
+        <th th:text="${message.firstName}"></th>
+        <th th:text="${message.lastName}"></th>
         <th scope="row" th:text="${message.birthDate}" ></th>
-        <td th:text="${message.getTeam().name}"></td>
-        <td th:text="${message.takeOf}"></td>
-        <td th:text="${message.technique}"></td>
-        <td th:text="${message.landing}"></td>
+        <th th:text="${message.getTeam().name}"></th>
+        <th th:text="${message.takeOf}"></th>
+        <th th:text="${message.technique}"></th>
+        <th th:text="${message.landing}"></th>
 
         <td>
             <div class="row">

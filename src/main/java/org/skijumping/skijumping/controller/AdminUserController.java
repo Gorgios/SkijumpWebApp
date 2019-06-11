@@ -69,7 +69,6 @@ public class AdminUserController {
             return "admin/users";
         }
         else {
-         //   System.out.println(user.getId() + "\n\n\n\n\n\n\n\n");
             userRepository.save(user);
             return "redirect:/admin/users/";
         }

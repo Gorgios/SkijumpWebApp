@@ -76,11 +76,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${messages}">
-        <th scope="row" th:text="${user.id}" ></th>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.role}"></td>
+    <tr th:each="user, iter : ${messages}">
+        <th th:text = "${iter.index + 1}" ></th>
+        <th th:text="${user.username}"></th>
+        <th th:text="${user.email}"></th>
+        <th th:text="${user.role}"></th>
 
         <td>
             <div class="row">

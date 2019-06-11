@@ -68,11 +68,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="message : ${tournees}">
-        <th scope="row" th:text="${message.id}" ></th>
-        <td th:text="${message.name}"></td>
-        <td th:text="${message.dateStart}"></td>
-        <td th:text="${message.dateEnd}"></td>
+    <tr th:each="message , iter : ${tournees}">
+        <th th:text = "${iter.index + 1}" ></th>
+        <th th:text="${message.name}"></th>
+        <th th:text="${message.dateStart}"></th>
+        <th th:text="${message.dateEnd}"></th>
 
         <td>
             <div class="row">

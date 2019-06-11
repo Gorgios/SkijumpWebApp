@@ -67,8 +67,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="message : ${messages}">
-        <th scope="row" th:text="${message.id}" ></th>
+    <tr th:each="message , iter : ${messages}">
+        <th th:text = "${iter.index + 1}" ></th>
         <th th:text="${message.name}"></th>
         <th th:text="${message.coach}"></th>
 

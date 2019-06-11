@@ -48,23 +48,23 @@ public class JumperController {
         theModel.addAttribute("jumper",jumper);
         theModel.addAttribute("competitions",competitionRepository.findAll());
         List<Clasification> clas = clasificationRepository
-                .findAllByTournee(tourneeRepository.findById(2).orElse(null));
+                .findAllByTournee(tourneeRepository.findById(7).orElse(null));
         Collections.sort(clas, Collections.reverseOrder());
         theModel.addAttribute("worldCup",clas);
         clas = clasificationRepository
-                .findAllByTournee(tourneeRepository.findById(3).orElse(null));
+                .findAllByTournee(tourneeRepository.findById(8).orElse(null));
         Collections.sort(clas, Collections.reverseOrder());
         theModel.addAttribute("tcs",  clas);
         clas = clasificationRepository
-                .findAllByTournee(tourneeRepository.findById(4).orElse(null));
+                .findAllByTournee(tourneeRepository.findById(9).orElse(null));
         Collections.sort(clas, Collections.reverseOrder());
         theModel.addAttribute("w5",  clas);
         clas = clasificationRepository
-                .findAllByTournee(tourneeRepository.findById(5).orElse(null));
+                .findAllByTournee(tourneeRepository.findById(10).orElse(null));
         Collections.sort(clas, Collections.reverseOrder());
         theModel.addAttribute("rawAir",  clas);
         clas = clasificationRepository
-                .findAllByTournee(tourneeRepository.findById(6).orElse(null));
+                .findAllByTournee(tourneeRepository.findById(11).orElse(null));
         Collections.sort(clas, Collections.reverseOrder());
         theModel.addAttribute("planica7",  clas);
         return "jumper/index";
